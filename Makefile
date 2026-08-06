@@ -2,6 +2,8 @@ CC=nasm -f elf64
 LINKER=ld
 DIRS=obj bin
 
+all: $(DIRS) rev_shellcode shellcode rev_tcp runner
+
 $(DIRS):
 	mkdir -p $@
 
@@ -15,7 +17,7 @@ shellcode: $(DIRS)
 
 rev_tcp: $(DIRS)
 	$(CC) reverse_shell/rev_tcp.s -o ./obj/rev_tcp.o
-	$(LINKER) reverse_shell/rev_tcp.o -o ./bin/rev_tcp
+	$(LINKER) obj/rev_tcp.o -o ./bin/rev_tcp
 
 runner: $(DIRS)
 	gcc runner.c -o runner
