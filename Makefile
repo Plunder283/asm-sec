@@ -2,6 +2,9 @@ CC=nasm -f elf64
 LINKER=ld
 DIRS=obj bin
 
+$(DIRS):
+	mkdir -p $@
+
 rev_shellcode: $(DIRS)
 	$(CC) reverse_shell/rev_tcp_shellcode.s -o ./obj/rev_tcp_shellcode.o
 	$(LINKER) ./obj/rev_tcp_shellcode.o -o ./bin/rev_tcp_shellcode
